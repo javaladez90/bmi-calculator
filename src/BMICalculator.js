@@ -8,21 +8,35 @@ function BMICalculator() {
     const [unit, setUnit] = useState('kg-m');
 
     const handleUnitChange = (e) => {
-        setUnit(e.target.value);
-        const weightValue = e.target.value === 'kg-m' ? weight * 2.20462 : weight / 2.20462;
-        const heightValue = e.target.value === 'kg-m' ? height / 39.3701 : height * 39.3701;
-        setWeight(weightValue);
-        setHeight(heightValue);
+       setUnit(e.target.value);
+       let weightValue = weight;
+       let heightValue = height;
+
+       if (e.target.value === 'kg-m') {
+        //convert from lbs to kg
+        weightValue = weight / 2.20462;
+        //convert from inches to meters
+        heightValue = height / 39.3701;
+       } else if (e.target.value === 'lbs-inches') {
+        //convert from kg to lbs
+        weightValue = weight * 2.20462;
+        //convert from meters to inches
+        heightValue = height * 39.3701;
+       }
+
+       setWeight(weightValue);
+       setHeight(heightValue);
     };
 
     const calculateBMI = () => {
-        const weightKg = unit === 'lbs' ? parseFloat(weight) * 0.453592 : parseFloat(weight);
-        const heightM = unit === 'inches' ? parseFloat(height) * 0.0254 : parseFloat(height);
+        const weightKg = unit === 'kg-m' ? parseFloat(weight) : parseFloat(weight) * 0.453592 ;
+        const heightM = unit === 'm' ? parseFloat(height) : parseFloat(height) * 0.0254;
         if (weightKg > 0 && heightM > 0) {
             const bmiValue = weightKg / (heightM * heightM);
             setBMI(bmiValue.toFixed(2));
         }
     };
+}
 
     return (
         <div className='bmi-calculator'>
@@ -60,7 +74,7 @@ function BMICalculator() {
             )}
         </div>
     );
-}
+
 
 function interpretBMI(bmi) {
     if (bmi < 18.5) return 'Underweight';
