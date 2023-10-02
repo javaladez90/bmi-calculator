@@ -17,15 +17,8 @@ function BMICalculator() {
         setHeight(e.target.value);
     };
 
-    const handleWeightUnitChange = (e) => {
-        const newUnit = e.target.value;
-        setWeightUnit(newUnit);
-    };
 
-    const handleHeightUnitChange = (e) => {
-        const newUnit = e.target.value;
-        setHeightUnit(newUnit);
-    };
+    
        
     const calculateBMI = () => {
         let weightKg = parseFloat(weight);
@@ -54,6 +47,8 @@ function BMICalculator() {
         return 'Obese'
     }
 
+    const weightPlaceholder = weightUnit === 'kg' ? 'Weight (kg)' : 'Weight (lbs)';
+    const heightPlaceholder = heightUnit === 'm' ? 'Height (m)' : 'Height (inches)';
 
     return (
         <div className='bmi-calculator'>
@@ -65,22 +60,18 @@ function BMICalculator() {
                     id='weight'
                     value={weight}
                     onChange={handleWeightChange}
+                    placeholder={weightPlaceholder}
                     />
-                    <select className='weightUnit' value={weightUnit} onChange={handleWeightUnitChange}>
-                        <option value='kg'>kg</option>
-                        <option value='lbs'>lbs</option>
-                    </select>
+                </div>
+                <div>
                 <label htmlFor='height'>Height:</label>
                 <input
                     type='text'
                     id='height'
                     value={height}
                     onChange={handleHeightChange}
+                    placeholder={heightPlaceholder}
                     />
-                    <select className='heightUnit' value={heightUnit} onChange={handleHeightUnitChange}>
-                        <option value='m'>m</option>
-                        <option value='inches'>inches</option>
-                    </select>
             </div>
             <div>
                 <p>Choose units:</p>
