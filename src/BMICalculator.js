@@ -82,6 +82,35 @@ function BMICalculator() {
                         <option value='inches'>inches</option>
                     </select>
             </div>
+            <div>
+                <p>Choose units:</p>
+                <label>
+                    <input
+                        type='radio'
+                        name='unit'
+                        value='metric'
+                        checked={weightUnit === 'kg' && heightUnit === 'm'}
+                        onChange={() => {
+                            setWeightUnit('kg');
+                            setHeightUnit('m');
+                        }}
+                    />
+                    Metric (kg/m)
+                </label>
+                <label>
+                    <input
+                        type='radio'
+                        name='unit'
+                        value='imperial'
+                        checked={weightUnit === 'lbs' && heightUnit === 'inches'}
+                        onChange={() => {
+                            setWeightUnit('lbs');
+                            setHeightUnit('inches');
+                        }}
+                    />
+                    Imperial (lbs/inches)
+                </label>
+            </div>
             <button onClick={calculateBMI}>Calculate BMI</button>
             {bmi && (
                 <div className='bmi-result'>
